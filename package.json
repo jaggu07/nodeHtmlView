@@ -1,0 +1,9 @@
+{
+  "name": "node_test",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "consolidate": "^0.15.0",
+    "express": "^4.16.3",
+    "swig": "^1.4.2"
+  }
+}
