@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname)));
 app.get('/',function(req,res){
     res.render('index');
 })
-
-
-app.listen(3000,function(req,res){
+console.log("listening...",process.env.PORT )
+app.listen(process.env.PORT || 2018)
+/*app.listen(3000,function(req,res){
     console.log("listening...")
-})
+})*/
