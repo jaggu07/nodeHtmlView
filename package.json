@@ -60,7 +60,8 @@
     "pace": "0.0.4",
     "raphael": "^2.2.7",
     "select2": "^4.0.3",
-    "slimscroll": "^0.9.1"
+    "slimscroll": "^0.9.1",
+    "bower":"^"
   }
 }
 
