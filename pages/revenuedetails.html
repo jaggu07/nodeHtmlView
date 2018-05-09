@@ -221,15 +221,23 @@
       <section class="content">
         <div class="row">
           <div class="col-xs-12">
-              <div class="box">
+              <div class="box box-info">
                   <div class="box-header">
                       <h3 class="box-title">Completed Bookings</h3>
                   </div>
                   <!-- /.box-header -->
                   <div class="box-body">
-                <div class="tab-pane" id="completed">
-                    <div class="slds-box slds-m-around_medium">
+                    
+                    <div class="slds-box slds-m-around_medium slds-grid slds-wrap">
+                        <div class="slds-size_1-of-1"  style="position: absolute;margin-top: 1rem;">
+                          <div class="slds-align_absolute-center">
+                            <a id="dlink"  style="display:none;"></a>
+                            <input type="button" class="slds-button slds-button_neutral" onclick="tableToExcel('completeTable', 'W3C Example Table', 'MyFile.xls')" value="Export as Excel"/>
+                          </div>
+                        </div>
+                        <div class="slds-size_1-of-1">
                         <table id="completeTable" class="table table-bordered table-hover">
+                            <caption>Completed Orders - {{today | date : "MMMM-yyyy"}}</caption>
                             <thead>
                                 <tr>
                                     <th>Booking Id</th>
@@ -238,6 +246,7 @@
                                     <th>Sub Category</th>
                                     <th style="width: 3.5rem!important;">Booked on</th>
                                     <th>Location</th>
+                                    <th>Employee Name</th>                                    
                                     <th>Price</th>
                                 </tr>
                             </thead>
@@ -248,15 +257,16 @@
                                   <td>{{completedOrder.category}}</td>
                                   <td>{{completedOrder.sub_category}}</td>
                                   <td>{{completedOrder.booked_on  | date:'dd/MM/yyyy hh:mm a'}}</td>
-                                  <td>{{completedOrder.location}}</td-->
+                                  <td>{{completedOrder.location}}</td>
+                                  <td>{{completedOrder.emp_name}}</td>
                                   <td>{{completedOrder.price}}</td>
                                 </tr>
                             </tbody>
                         </table>
                       </div>
+                      </div>
                 </div>
                 <!-- /#completed -->
-  </div>
   </div>
           </div>
           <!-- /.col -->
@@ -336,7 +346,7 @@
         $scope.orderSelected = {};
         $scope.empSelected = {};
         $scope.showSpinner = false;
-        
+        $scope.today = new Date();
         $scope.signOut = function(){
           $window.localStorage.clear();
           window.location.href = '../index.html';
@@ -449,6 +459,27 @@
         };
         getAllBookingDetails(true);
     });
+    var tableToExcel = (function () {
+    var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+        base64 = function (s) {
+            return window.btoa(unescape(encodeURIComponent(s)))
+        }, format = function (s, c) {
+            return s.replace(/{(\w+)}/g, function (m, p) {
+                return c[p];
+            })
+        }
+    return function (table, name, filename) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {
+            worksheet: name || 'Worksheet',
+            table: table.innerHTML
+        }
+   document.getElementById("dlink").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink").download = filename;
+            document.getElementById("dlink").click();
+    }
+})()
   </script>
 
   </body>

@@ -259,7 +259,7 @@
                                   <td>
                                     <div class="slds-button-group" role="group">
                                       <button class="slds-button slds-button_neutral " confirmed-click="cancelOrder(pendingOrder._id)" ng-confirm-click>Cancel</button>
-                                      <button class="slds-button slds-button_neutral " confirmed-click="acceptOrder(true,pendingOrder)" ng-confirm-click>Accept Order</button>
+                                      <button class="slds-button slds-button_neutral " ng-click="acceptOrder(true,pendingOrder)">Accept Order</button>
                                     </div>
                                   </td>
                                 </tr>
@@ -316,6 +316,7 @@
                                     <th>Sub Category</th>
                                     <th style="width: 3.5rem!important;">Booked on</th>
                                     <th>Location</th>
+                                    <th>Employee Name</th>
                                     <th>Price</th>
                                 </tr>
                             </thead>
@@ -326,7 +327,8 @@
                                   <td>{{completedOrder.category}}</td>
                                   <td>{{completedOrder.sub_category}}</td>
                                   <td>{{completedOrder.booked_on  | date:'dd/MM/yyyy hh:mm a'}}</td>
-                                  <td>{{completedOrder.location}}</td-->
+                                  <td>{{completedOrder.location}}</td>
+                                  <td>{{completedOrder.emp_name}}</td>
                                   <td>{{completedOrder.price}}</td>
                                 </tr>
                             </tbody>
